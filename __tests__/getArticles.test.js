@@ -10,7 +10,6 @@ afterAll(() => {
   db.end();
 });
 
-// Test 400 - If somebody types wrong input
 const testArticles = {
   article: [
     {

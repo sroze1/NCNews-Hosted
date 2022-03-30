@@ -13,14 +13,6 @@ afterAll(() => {
 // correct keys?
 // correct length?
 // 404?
-// Correct columns and rows
-// const testTopics = {
-//   topics: [
-//     { description: "The man, the Mitch, the legend", slug: "mitch" },
-//     { description: "Not dogs", slug: "cats" },
-//     { description: "what books are made of", slug: "paper" },
-//   ],
-// };
 
 // TOPICS
 describe("GET /api/topics", () => {
