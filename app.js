@@ -12,11 +12,9 @@ const {
 const app = express();
 app.use(express.json());
 
-// GET
 app.get("/api/topics", getTopics);
 app.get("/api/articles/:article_id", getArticles);
 
-// PATCH /api/articles/:article_id
 app.patch("/api/articles/:article_id", patchArticles);
 
 app.post("/api/comments/:article_id/comments", postComments);

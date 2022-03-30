@@ -11,47 +11,35 @@ afterAll(() => {
 });
 
 describe("PATCH /api/articles/:article_id", () => {
-  test("Returns the article object", () => {
-    return request(app)
+  test("Returns the article object", async () => {
+    const results = await request(app)
       .patch("/api/articles/1")
       .expect(200)
-      .send({ inc_votes: 100 })
-      .then((results) => {
-        expect(results.body.article).toEqual({
-          article_id: expect.any(Number),
-          title: expect.any(String),
-          topic: expect.any(String),
-          author: expect.any(String),
-          body: expect.any(String),
-          created_at: expect.any(String),
-          votes: expect.any(Number),
-        });
-      });
+      .send({ inc_votes: 100 });
+    expect(results.body.article).toEqual({
+      article_id: expect.any(Number),
+      title: expect.any(String),
+      topic: expect.any(String),
+      author: expect.any(String),
+      body: expect.any(String),
+      created_at: expect.any(String),
+      votes: expect.any(Number),
+    });
   });
 
-  test("Updates the votes correctly", () => {
-    return request(app)
+  test("Updates the votes correctly", async () => {
+    const results = await request(app)
       .patch("/api/articles/1")
       .expect(200)
-      .send({ inc_votes: 100 })
-      .then((results) => {
-        expect(results.body.article.votes).toEqual(200);
-      });
+      .send({ inc_votes: 100 });
+    expect(results.body.article.votes).toEqual(200);
   });
-  test("returns 404 for incorrect path", () => {
-    return request(app)
-      .get("/api/articlese3u")
-      .expect(404)
-      .then((results) => {
-        expect(results.status).toBe(404);
-      });
+  test("returns 404 for incorrect path", async () => {
+    const results = await request(app).patch("/api/articlese3u").expect(404);
+    expect(results.status).toBe(404);
   });
-  test("returns 400 for bad request / incorrect ID path", () => {
-    return request(app)
-      .get("/api/articles/3u")
-      .expect(400)
-      .then((results) => {
-        expect(results.status).toBe(400);
-      });
+  test("returns 400 for bad request / incorrect ID path", async () => {
+    const results = await request(app).patch("/api/articles/3u").expect(400);
+    expect(results.status).toBe(400);
   });
 });

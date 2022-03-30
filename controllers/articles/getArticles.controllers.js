@@ -1,4 +1,6 @@
-const { getArticlesModel } = require("../../models/articles/getArticles.models");
+const {
+  getArticlesModel,
+} = require("../../models/articles/getArticles.models");
 
 exports.getArticles = (req, res, next) => {
   const { article_id } = req.params;
@@ -9,7 +11,6 @@ exports.getArticles = (req, res, next) => {
       res.send({ article });
     })
     .catch((err) => {
-      console.log("error:", err);
       next(err);
     });
 };

@@ -16,34 +16,22 @@ afterAll(() => {
 
 // TOPICS
 describe("GET /api/topics", () => {
-  test("gets all topics", () => {
-    return request(app)
-      .get("/api/topics")
-      .expect(200)
-      .then((results) => {
-        expect(results.body.topics).toEqual([
-          { description: expect.any(String), slug: expect.any(String) },
-          { description: expect.any(String), slug: expect.any(String) },
-          { description: expect.any(String), slug: expect.any(String) },
-        ]);
-      });
+  test("gets all topics", async () => {
+    const results = await request(app).get("/api/topics").expect(200);
+    expect(results.body.topics).toEqual([
+      { description: expect.any(String), slug: expect.any(String) },
+      { description: expect.any(String), slug: expect.any(String) },
+      { description: expect.any(String), slug: expect.any(String) },
+    ]);
   });
 
-  test("is the correct length", () => {
-    return request(app)
-      .get("/api/topics")
-      .expect(200)
-      .then((results) => {
-        expect(results.body.topics.length).toBe(3);
-      });
+  test("is the correct length", async () => {
+    const results = await request(app).get("/api/topics").expect(200);
+    expect(results.body.topics.length).toBe(3);
   });
-  test("gets 404 for incorrect path", () => {
-    return request(app)
-      .get("/api/topicse3u")
-      .expect(404)
-      .then((results) => {
-        expect(results.status).toBe(404);
-      });
+  test("gets 404 for incorrect path", async () => {
+    const results = await request(app).get("/api/topicse3u").expect(404);
+    expect(results.status).toBe(404);
   });
 });
 
