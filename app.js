@@ -1,6 +1,7 @@
 const express = require("express");
 const { getTopics } = require("./controllers/get.controllers");
 const { getArticles } = require("./controllers/getArticles.controllers");
+const { getUsers } = require("./controllers/getUsers.controllers");
 
 const { postComments } = require("./controllers/post.controllers");
 
@@ -10,6 +11,7 @@ app.use(express.json());
 // GET
 app.get("/api/topics", getTopics);
 app.get("/api/articles/:article_id", getArticles);
+app.get("/api/users", getUsers);
 
 app.post("/api/comments/:article_id/comments", postComments);
 
