@@ -10,6 +10,7 @@ afterAll(() => {
   db.end();
 });
 
+// Test 400 - If somebody types wrong input
 const testArticles = {
   article: [
     {
@@ -57,6 +58,14 @@ describe("GET /api/articles/:article_id", () => {
       .expect(404)
       .then((results) => {
         expect(results.status).toBe(404);
+      });
+  });
+  test("gets 400 for bad request", () => {
+    return request(app)
+      .get("/api/articles/3u")
+      .expect(400)
+      .then((results) => {
+        expect(results.status).toBe(400);
       });
   });
 });

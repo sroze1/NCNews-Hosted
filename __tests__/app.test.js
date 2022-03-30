@@ -13,13 +13,14 @@ afterAll(() => {
 // correct keys?
 // correct length?
 // 404?
-const testTopics = {
-  topics: [
-    { description: "The man, the Mitch, the legend", slug: "mitch" },
-    { description: "Not dogs", slug: "cats" },
-    { description: "what books are made of", slug: "paper" },
-  ],
-};
+// Correct columns and rows
+// const testTopics = {
+//   topics: [
+//     { description: "The man, the Mitch, the legend", slug: "mitch" },
+//     { description: "Not dogs", slug: "cats" },
+//     { description: "what books are made of", slug: "paper" },
+//   ],
+// };
 
 // TOPICS
 describe("GET /api/topics", () => {
@@ -28,7 +29,11 @@ describe("GET /api/topics", () => {
       .get("/api/topics")
       .expect(200)
       .then((results) => {
-        expect(results.body).toEqual(testTopics);
+        expect(results.body.topics).toEqual([
+          { description: expect.any(String), slug: expect.any(String) },
+          { description: expect.any(String), slug: expect.any(String) },
+          { description: expect.any(String), slug: expect.any(String) },
+        ]);
       });
   });
 
@@ -49,7 +54,6 @@ describe("GET /api/topics", () => {
       });
   });
 });
-
 
 // describe("POST /api/articles/:article_id/comments", () => {
 //   test("Adds comment to relevant column for article_id", () => {
