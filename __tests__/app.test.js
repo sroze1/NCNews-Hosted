@@ -14,13 +14,35 @@ afterAll(() => {
 // correct length?
 // 404?
 
+// TOPICS
 describe("GET /api/topics", () => {
   test("gets all topics", () => {
     return request(app)
       .get("/api/topics")
       .expect(200)
       .then((results) => {
-        console.log(results.body);
+        expect(results.body.topics).toEqual([
+          { description: expect.any(String), slug: expect.any(String) },
+          { description: expect.any(String), slug: expect.any(String) },
+          { description: expect.any(String), slug: expect.any(String) },
+        ]);
+      });
+  });
+
+  test("is the correct length", () => {
+    return request(app)
+      .get("/api/topics")
+      .expect(200)
+      .then((results) => {
+        expect(results.body.topics.length).toBe(3);
+      });
+  });
+  test("gets 404 for incorrect path", () => {
+    return request(app)
+      .get("/api/topicse3u")
+      .expect(404)
+      .then((results) => {
+        expect(results.status).toBe(404);
       });
   });
 });
