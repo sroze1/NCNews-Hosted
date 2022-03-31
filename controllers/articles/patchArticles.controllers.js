@@ -8,9 +8,6 @@ exports.patchArticles = (req, res, next) => {
 
   patchArticleModel(article_ID, voteNum)
     .then((article) => {
-      if (article_ID !== Number) {
-        res.status(400);
-      }
       res.status(200).send({ article });
     })
     .catch((err) => {

@@ -1,11 +1,9 @@
-const {
-  getArticlesModel,
-} = require("../../models/articles/getArticles.models");
+const { getArticleModel } = require("../../models/articles/getArticles.models");
 
-exports.getArticles = (req, res, next) => {
+exports.getArticle = (req, res, next) => {
   const { article_id } = req.params;
 
-  getArticlesModel(article_id)
+  getArticleModel(article_id)
     .then((article) => {
       res.status(200);
       res.send({ article });
