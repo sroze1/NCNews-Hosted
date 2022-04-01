@@ -35,20 +35,6 @@ describe("GET /api/topics", () => {
   });
 });
 
-const testArticles = {
-  article: [
-    {
-      article_id: 1,
-      title: "Living in the shadow of a great man",
-      topic: "mitch",
-      author: "butter_bridge",
-      body: "I find this existence challenging",
-      created_at: "2020-07-09T20:11:00.000Z",
-      votes: 100,
-    },
-  ],
-};
-
 // Skipped because reused with updated column
 // describe("GET /api/articles/:article_id", () => {
 //   test("gets all topics", async () => {
@@ -175,7 +161,7 @@ describe("GET /api/articles/:article_id returns new column of comment count", ()
   });
 });
 
-describe.only("GET /api/articles/:article_id/comments returns an array of all the comments", () => {
+describe("GET /api/articles/:article_id/comments returns an array of all the comments", () => {
   test("returns the correct array", () => {
     return request(app)
       .get("/api/articles/1/comments")
