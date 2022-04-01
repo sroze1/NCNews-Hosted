@@ -14,15 +14,16 @@ const {
   patchArticles,
 } = require("./controllers/articles/patchArticles.controllers");
 const { getTopics } = require("./controllers/get.controllers");
+const {
+  getCommentsForArticle,
+} = require("./controllers/commentsCount.controllers");
 
 const app = express();
 app.use(express.json());
 
 app.get("/api/topics", getTopics);
-
 app.get("/api/users", getUsers);
-
-app.get("/api/articles/:article_id", getArticle);
+app.get("/api/articles/:article_id", getCommentsForArticle);
 
 app.patch("/api/articles/:article_id", patchArticles);
 
