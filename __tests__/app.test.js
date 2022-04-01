@@ -175,6 +175,41 @@ describe("GET /api/articles/:article_id returns new column of comment count", ()
   });
 });
 
+describe.only("GET /api/articles/:article_id/comments returns an array of all the comments", () => {
+  test("returns the correct array", () => {
+    return request(app)
+      .get("/api/articles/1/comments")
+      .expect(200)
+      .then((results) => {
+        results.body.comments.forEach((result) => {
+          expect(result).toMatchObject({
+            comment_id: expect.any(Number),
+            body: expect.any(String),
+            article_id: expect.any(Number),
+            author: expect.any(String),
+            votes: expect.any(Number),
+            created_at: expect.any(String),
+          });
+        });
+      });
+  });
+  test("gets 404 for incorrect path", () => {
+    return request(app)
+      .get("/api/articlese3u")
+      .expect(404)
+      .then((results) => {
+        expect(results.status).toBe(404);
+      });
+  });
+  test("gets 400 for bad request", () => {
+    return request(app)
+      .get("/api/articles/3u")
+      .expect(400)
+      .then((results) => {
+        expect(results.status).toBe(400);
+      });
+  });
+});
 // describe("POST /api/articles/:article_id/comments", () => {
 //   test("Adds comment to relevant column for article_id", () => {
 //     return request(app)
