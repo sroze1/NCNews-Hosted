@@ -2,7 +2,6 @@ const express = require("express");
 
 const { getUsers } = require("./controllers/getUsers.controllers");
 
-const { postComments } = require("./controllers/post.controllers");
 const {
   patchArticles,
 } = require("./controllers/articles/patchArticles.controllers");
@@ -14,6 +13,7 @@ const {
 const {
   getCommentsByID,
 } = require("./controllers/getCommentsByID.controllers");
+const { postComments } = require("./controllers/post.controllers");
 
 const app = express();
 app.use(express.json());
@@ -26,7 +26,7 @@ app.get("/api/articles/:article_id/comments", getCommentsByID);
 
 app.patch("/api/articles/:article_id", patchArticles);
 
-app.post("/api/comments/:article_id/comments", postComments);
+app.post("/api/articles/:article_id/comments", postComments);
 
 app.use((err, req, res, next) => {
   const badReqCodes = ["42703"];
@@ -39,10 +39,15 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.code === "22P02") {
+  if (err.code === "22P02" || err.code === "23502") {
     return res.status(400).send({ msg: "400: Bad Request!" });
   } else {
     next(err);
+  }
+});
+app.use((err, req, res, next) => {
+  if (err.code === "23503") {
+    res.status(404).send({ msg: "article not found" });
   }
 });
 

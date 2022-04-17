@@ -1,16 +1,10 @@
 const db = require("../db/connection");
 
-exports.postCommentsModel = (article_id, comment) => {
-  return db
-    .query(
-      `INSERT into comments 
-    VALUES ${comment}
-    WHERE article_id = ${article_id}
-    RETURNING *;`
-    )
-    .then((results) => {
-      console.log(results.rows, "<< 1");
-      console.log(results.rows[0], "<< 2");
-      return results.rows[0];
-    });
+exports.postCommentsModel = async (article_id, comment) => {
+  const results = await db.query(
+    "INSERT INTO comments (body, author, article_id) VALUES ($1, $2, $3) RETURNING *;",
+    [comment.body, comment.username, article_id]
+  );
+
+  return results.rows[0];
 };

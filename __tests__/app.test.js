@@ -196,13 +196,53 @@ describe("GET /api/articles/:article_id/comments returns an array of all the com
       });
   });
 });
-// describe("POST /api/articles/:article_id/comments", () => {
-//   test("Adds comment to relevant column for article_id", () => {
-//     return request(app)
-//       .post("/api/articles/5/comments")
-//       .send("test jkfnkj")
-//       .then((results) => {
-//         // console.log(results);
-//       });
-//   });
-// });
+
+describe("POST/api/:article_id/comments", () => {
+  test("201: returns an object", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({
+        username: "rogersop",
+        body: "Damn son where'd you find this",
+      })
+      .expect(201)
+      .then((results) => {
+        expect(typeof results.body).toBe("object");
+      });
+  });
+  test("201: returns the correct object", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({
+        username: "rogersop",
+        body: "Damn son where'd you find this",
+      })
+      .expect(201)
+      .then((results) => {
+        expect(results.body).toEqual({
+          comment_id: expect.any(Number),
+          body: expect.any(String),
+          article_id: expect.any(Number),
+          author: expect.any(String),
+          votes: expect.any(Number),
+          created_at: expect.any(String),
+        });
+      });
+  });
+  test("gets 404 for incorrect path", () => {
+    return request(app)
+      .get("/api/articlese3u")
+      .expect(404)
+      .then((results) => {
+        expect(results.status).toBe(404);
+      });
+  });
+  test("gets 400 for bad request", () => {
+    return request(app)
+      .get("/api/articles/3u")
+      .expect(400)
+      .then((results) => {
+        expect(results.status).toBe(400);
+      });
+  });
+});
