@@ -277,13 +277,25 @@ describe("GET/api/articles applied with sorting can filter results", () => {
   });
 });
 
-describe.only("DELETE/api/comments/:comment_id", () => {
+describe("DELETE/api/comments/:comment_id", () => {
   test("204, repsons with an empty response body and no content", () => {
     return request(app)
       .delete("/api/comments/1")
       .expect(204)
       .then((res) => {
         expect(res.body).toEqual({});
+      });
+  });
+});
+
+describe.only("GET /api", () => {
+  test("returns an object", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then((res) => {
+        console.log(res.body);
+        expect(typeof res.body).toBe("object");
       });
   });
 });
