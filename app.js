@@ -17,6 +17,7 @@ const { postComments } = require("./controllers/post.controllers");
 const {
   getArticles,
 } = require("./controllers/articles/articleQueries.controllers");
+const { deleteComment } = require("./controllers/deleteComments.controllers");
 
 const app = express();
 app.use(express.json());
@@ -31,6 +32,7 @@ app.get("/api/articles", getArticles);
 app.patch("/api/articles/:article_id", patchArticles);
 
 app.post("/api/articles/:article_id/comments", postComments);
+app.delete("/api/comments/:comment_id", deleteComment);
 
 app.use((err, req, res, next) => {
   const badReqCodes = ["42703"];

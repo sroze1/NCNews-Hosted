@@ -276,3 +276,14 @@ describe("GET/api/articles applied with sorting can filter results", () => {
       });
   });
 });
+
+describe.only("DELETE/api/comments/:comment_id", () => {
+  test("204, repsons with an empty response body and no content", () => {
+    return request(app)
+      .delete("/api/comments/1")
+      .expect(204)
+      .then((res) => {
+        expect(res.body).toEqual({});
+      });
+  });
+});
