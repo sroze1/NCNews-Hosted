@@ -10,3 +10,5 @@ exports.getArticleModel = (article_id) => {
       throw error;
     });
 };
+
+

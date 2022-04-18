@@ -246,3 +246,33 @@ describe("POST/api/:article_id/comments", () => {
       });
   });
 });
+
+describe("GET/api/articles applied with sorting can filter results", () => {
+  test("200: sort_by defaults to sorted by date", () => {
+    return request(app)
+      .get("/api/articles?order=asc")
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toBeSortedBy("created_at", { ascending: true });
+      });
+  });
+  test("200: sorts by user selected query and order", () => {
+    return request(app)
+      .get("/api/articles?order=desc&sort_by=author")
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toBeSortedBy("author", { descending: true });
+      });
+  });
+  test("200: sorts by user selected query, order and topic", () => {
+    return request(app)
+      .get("/api/articles?order=desc&sort_by=author&topic=cats")
+      .expect(200)
+      .then((res) => {
+        res.body.forEach((article) => {
+          expect(article.topic).toBe("cats");
+        });
+        expect(res.body).toBeSortedBy("author", { descending: true });
+      });
+  });
+});
